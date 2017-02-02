@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202014954) do
+ActiveRecord::Schema.define(version: 20170202024356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20170202014954) do
     t.datetime "updated_at",        null: false
     t.integer  "feedback_state_id", null: false
     t.index ["feedback_state_id"], name: "index_feedbacks_on_feedback_state_id", using: :btree
+  end
+
+  create_table "integrations", force: :cascade do |t|
+    t.string   "source",                     null: false
+    t.jsonb    "credentials", default: "{}"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "ticket_interests", force: :cascade do |t|
