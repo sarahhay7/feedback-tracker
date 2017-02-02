@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :integration do
-    source 'external_source'
-    credentials(token: 'secret')
+    source 'Intercom'
+    credentials(token: 'secret', app_id: 'intecom-test')
   end
 end
