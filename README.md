@@ -12,4 +12,4 @@ Run Tests
 
 Start Local Server
 
-    rails s
+    bundle exec foreman start

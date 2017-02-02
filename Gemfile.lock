@@ -69,6 +69,8 @@ GEM
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
     ffi (1.9.17)
+    foreman (0.83.0)
+      thor (~> 0.19.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.8.0)
@@ -82,6 +84,9 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    jsonapi-resources (0.8.3)
+      concurrent-ruby
+      rails (>= 4.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -179,6 +184,8 @@ GEM
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+    webpack-rails (0.9.10)
+      railties (>= 3.2.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -193,9 +200,11 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.2)
   factory_girl_rails (~> 4.0)
+  foreman
   intercom
   jbuilder (~> 2.5)
   jquery-rails
+  jsonapi-resources
   listen (~> 3.0.5)
   pg (~> 0.18)
   puma (~> 3.0)
@@ -207,9 +216,10 @@ DEPENDENCIES
   vcr
   web-console (>= 3.3.0)
   webmock
+  webpack-rails
 
 RUBY VERSION
    ruby 2.3.2p217
 
 BUNDLED WITH
-   1.13.6
+   1.14.3

@@ -1,0 +1,100 @@
+{
+  "name": "webpack-rails-example",
+  "version": "0.0.1",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "private": true,
+  "scripts": {
+    "start-test": "check-engines && karma start ./config/karma.config.js",
+    "test": "check-engines && standard && karma start ./config/karma.config.js --single-run",
+    "storybook": "check-engines && start-storybook -p 6006 --dont-track",
+    "build-storybook": "check-engines && build-storybook"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.6.1",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-plugin-transform-runtime": "6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "classnames": "2.2.5",
+    "core-js": "2.4.1",
+    "css-loader": "^0.26.1",
+    "date-fns": "^1.26.0",
+    "dotenv": "^4.0.0",
+    "file-loader": "0.9.0",
+    "font-awesome": "^4.7.0",
+    "font-awesome-sass-loader": "^1.0.3",
+    "history": "3.2.1",
+    "humps": "2.0.0",
+    "isomorphic-fetch": "2.2.1",
+    "json-loader": "0.5.4",
+    "node-sass": "^4.3.0",
+    "postcss-loader": "^1.2.2",
+    "qs": "^6.3.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-hot-loader": "1.3.1",
+    "react-redux": "^5.0.2",
+    "react-router": "^3.0.1",
+    "react-router-redux": "^4.0.7",
+    "redux": "3.6.0",
+    "redux-jsonapi": "^1.1.3",
+    "redux-storage": "^4.1.2",
+    "redux-storage-decorator-filter": "^1.1.8",
+    "redux-thunk": "2.1.0",
+    "resolve-url-loader": "^1.6.1",
+    "sass-loader": "^4.1.1",
+    "stats-webpack-plugin": "^0.4.3",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "^1.14.0"
+  },
+  "devDependencies": {
+    "@kadira/storybook": "^2.35.3",
+    "check-engines": "^1.4.0",
+    "fetch-mock": "4.3.0",
+    "jasmine-core": "2.5.2",
+    "karma": "^1.4.0",
+    "karma-browserstack-launcher": "1.1.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "1.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-ajax": "0.1.13",
+    "karma-safari-launcher": "1.0.0",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^2.0.1",
+    "react-addons-test-utils": "^15.4.2",
+    "standard": "7.1.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "engines": {
+    "node": ">=6.9.2 < 7",
+    "npm": ">=3.10.9 < 4",
+    "yarn": ">=0.17.10"
+  },
+  "babel": {
+    "presets": [
+      "babel-preset-es2015",
+      "babel-preset-es2016",
+      "babel-preset-react"
+    ],
+    "plugins": [
+      "babel-plugin-transform-class-properties",
+      "babel-plugin-transform-object-rest-spread",
+      [
+        "babel-plugin-transform-runtime",
+        {
+          "helpers": false,
+          "polyfill": false,
+          "regenerator": true
+        }
+      ]
+    ]
+  },
+  "standard": {
+    "ignore": "app"
+  }
+}
