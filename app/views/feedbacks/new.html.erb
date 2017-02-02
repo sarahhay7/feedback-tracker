@@ -1,6 +1,29 @@
 <%= form_for @feedback do |f| %>
+<div>
   <%= f.text_area :description, placeholder: 'Description' %>
+</div>
+
+<div>
   <%= f.collection_check_boxes :ticket_ids, Ticket.all, :id, :title %>
-  <%= f.collection_check_boxes :customer_ids, Customer.all, :id, :name %>
+</div>
+
+<div>
+  <%= f.fields_for :customer_interests do |cf| %>
+    <p>
+      <%= cf.hidden_field :customer_id %>
+
+      <label>
+        <%= cf.object.customer.name %>
+        <%= cf.check_box :_destroy, {}, 0, 1 %>
+      </label>
+
+      Importance:
+
+      <label>1: <%= cf.radio_button :importance, 1 %></label>
+      <label>2: <%= cf.radio_button :importance, 2 %></label>
+      <label>3: <%= cf.radio_button :importance, 3 %></label>
+    </p>
+  <% end %>
+</div>
   <%= f.submit 'Save' %>
 <% end %>

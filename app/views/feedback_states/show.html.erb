@@ -11,5 +11,10 @@
         <li><%= link_to customer.name %></li>
       <% end %>
     </ul>
+    <ul>
+      <% feedback.customer_interests.each do |interests| %>
+        <li> <%= interests.importance %> </li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
