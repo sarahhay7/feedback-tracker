@@ -11,7 +11,8 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:description, ticket_ids: [])
+    params.require(:feedback)
+      .permit(:description, ticket_ids: [], customer_ids: [])
       .merge(feedback_state: FeedbackState.first)
   end
 end

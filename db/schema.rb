@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202010515) do
+ActiveRecord::Schema.define(version: 20170202014954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customer_interests", force: :cascade do |t|
+    t.integer  "feedback_id", null: false
+    t.integer  "customer_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["customer_id"], name: "index_customer_interests_on_customer_id", using: :btree
+    t.index ["feedback_id"], name: "index_customer_interests_on_feedback_id", using: :btree
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "feedback_states", force: :cascade do |t|
     t.string   "name",       null: false
@@ -44,6 +59,8 @@ ActiveRecord::Schema.define(version: 20170202010515) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "customer_interests", "customers"
+  add_foreign_key "customer_interests", "feedbacks"
   add_foreign_key "feedbacks", "feedback_states"
   add_foreign_key "ticket_interests", "feedbacks"
   add_foreign_key "ticket_interests", "tickets"

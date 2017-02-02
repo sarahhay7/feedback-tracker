@@ -1,5 +1,6 @@
 <%= form_for @feedback do |f| %>
   <%= f.text_area :description, placeholder: 'Description' %>
   <%= f.collection_check_boxes :ticket_ids, Ticket.all, :id, :title %>
+  <%= f.collection_check_boxes :customer_ids, Customer.all, :id, :name %>
   <%= f.submit 'Save' %>
 <% end %>
