@@ -7,6 +7,10 @@
 
   <body>
     <nav>
+      <% FeedbackState.all.each do |state| %>
+        <%= link_to state.name, state %>
+      <% end %>
+
       <%= link_to 'New Feedback', new_feedback_path %>
 
       <%= flash_messages %>
@@ -15,6 +19,8 @@
         <%= button_to "Sync #{integration.source}", integration_sync_path(integration), method: :post %>
       <% end %>
     </nav>
+
     <%= yield %>
+    
   </body>
 </html>
