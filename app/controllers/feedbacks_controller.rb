@@ -4,7 +4,8 @@ class FeedbacksController < ApplicationController
   end
 
   def create
-    Feedback.create!(feedback_params)
+    feedback = Feedback.create!(feedback_params)
+    redirect_to feedback_state_path(feedback.feedback_state)
   end
 
   private
