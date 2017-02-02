@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { apiActions, deserialize } from 'redux-jsonapi'
 
 const styles = {
   root: {
@@ -29,56 +31,40 @@ const styles = {
   }
 }
 
-const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-
-const tilesData = [
-  {
-    description,
-    weight: 30
-  },
-  {
-    description,
-    weight: 20
-  },
-  {
-    description,
-    weight: 10
-  },
-  {
-    description,
-    weight: 5
-  },
-  {
-    description,
-    weight: 5
-  },
-  {
-    description,
-    weight: 4
-  },
-  {
-    description,
-    weight: 0
-  },
-  {
-    description,
-    weight: 0
+export class Dashboard extends Component {
+  componentWillMount () {
+    this.props.loadFeedbacks()
   }
-]
 
-export default class Dashboard extends Component {
   render () {
     return (
       <div style={styles.root}>
-        {tilesData.map((tile, index) => (
+        {this.props.feedbacks.map((feedback, index) => (
           <div key={index} style={styles.card}>
             <div style={styles.chip}>
-              {tile.weight}
+              {feedback.tickets().length}
             </div>
-            {tile.description}
+            {feedback.description}
           </div>
         ))}
       </div>
     )
   }
 }
+
+function select (state, props) {
+  const { api } = state
+  return {
+    feedbacks: Object.values(api.feedbacks || {}).map(feedback => deserialize(feedback, api))
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    loadFeedbacks: () => {
+      dispatch(apiActions.read({ _type: 'feedbacks' }, { params: { include: 'tickets' } }))
+    }
+  }
+}
+
+export default connect(select, mapDispatchToProps)(Dashboard)

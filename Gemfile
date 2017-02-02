@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'webpack-rails'
+gem 'jsonapi-resources'
 
 # Intercom integration
 gem 'intercom'
