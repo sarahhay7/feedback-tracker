@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202024759) do
+ActiveRecord::Schema.define(version: 20170202222735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,9 +65,14 @@ ActiveRecord::Schema.define(version: 20170202024759) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.string   "title",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",          null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "kind"
+    t.string   "status"
+    t.string   "remote_id"
+    t.integer  "integration_id"
+    t.index ["integration_id"], name: "index_tickets_on_integration_id", using: :btree
   end
 
   add_foreign_key "customer_interests", "customers"
@@ -76,4 +81,5 @@ ActiveRecord::Schema.define(version: 20170202024759) do
   add_foreign_key "feedbacks", "feedback_states"
   add_foreign_key "ticket_interests", "feedbacks"
   add_foreign_key "ticket_interests", "tickets"
+  add_foreign_key "tickets", "integrations"
 end
