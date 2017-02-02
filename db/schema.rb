@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170202024759) do
     t.integer  "customer_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "importance",  null: false
     t.index ["customer_id"], name: "index_customer_interests_on_customer_id", using: :btree
     t.index ["feedback_id"], name: "index_customer_interests_on_feedback_id", using: :btree
   end
