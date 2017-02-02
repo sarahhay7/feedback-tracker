@@ -9,7 +9,15 @@
   </head>
 
   <body>
-    <nav><%= link_to 'New Feedback', new_feedback_path %></nav>
+    <nav>
+      <%= link_to 'New Feedback', new_feedback_path %>
+
+      <%= flash_messages %>
+
+      <% Integration.all.each do |integration| %>
+        <%= button_to "Sync #{integration.source}", integration_sync_path(integration), method: :post %>
+      <% end %>
+    </nav>
     <%= yield %>
   </body>
 </html>
