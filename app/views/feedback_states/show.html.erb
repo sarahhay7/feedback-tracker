@@ -1,6 +1,7 @@
 <% @feedback_state.feedbacks.each do |feedback| %>
   <div>
     <p><%= feedback.description %></p>
+    <p>Weighting: <%= feedback.weighting %></p>
     <ul>
       <% feedback.tickets.each do |ticket| %>
         <li><%= link_to ticket.title %></li>

@@ -1,6 +1,9 @@
 <%= form_for @feedback do |f| %>
 <div>
   <%= f.text_area :description, placeholder: 'Description' %>
+  <label>Additional weighting:
+    <%= f.number_field :importance_mutation %>
+  </label>
 </div>
 
 <div>

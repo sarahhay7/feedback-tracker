@@ -18,6 +18,7 @@ class FeedbacksController < ApplicationController
     params.require(:feedback)
       .permit(
         :description,
+        :importance_mutation,
         ticket_ids: [],
         customer_ids: [],
         customer_interests_attributes: [:importance, :customer_id, :_destroy]
