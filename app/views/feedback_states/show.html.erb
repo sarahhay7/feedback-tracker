@@ -4,12 +4,12 @@
     <p>Weighting: <%= feedback.weighting %></p>
     <ul>
       <% feedback.tickets.each do |ticket| %>
-        <li><%= link_to ticket.title %></li>
+        <li><%= link_to ticket.title, ticket.remote_url %></li>
       <% end %>
     </ul>
     <ul>
       <% feedback.customers.each do |customer| %>
-        <li><%= link_to customer.name %></li>
+        <li><%= link_to customer.name, customer.remote_url %></li>
       <% end %>
     </ul>
     <ul>
