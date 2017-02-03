@@ -7,10 +7,7 @@ module PivotalTrackerIntegration
     end
 
     def perform
-      client = TrackerApi::Client.new(token: integration.credentials.fetch('token'))
-      client.project(integration.credentials.fetch('project_id')).stories.each do |story|
-        sync_story(story)
-      end
+      stories.each { |story| sync_story(story) }
     end
 
     def self.perform(*args)
@@ -19,11 +16,25 @@ module PivotalTrackerIntegration
 
     private
 
+    def stories
+      TrackerApi::Client.new(token: token).project(project_id).stories
+    end
+
+    def token
+      integration.credentials.fetch('token')
+    end
+
+    def project_id
+      integration.credentials.fetch('project_id')
+    end
+
     def sync_story(story)
-      ticket = Ticket.find_or_initialize_by(remote_id: story.id)
+      ticket = Ticket.find_or_initialize_by(
+        remote_id: story.id,
+        integration: integration
+      )
 
       ticket.update!(
-        integration: integration,
         title: story.name,
         kind: story.story_type,
         status: story.current_state
