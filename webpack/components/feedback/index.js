@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import SelectField from 'material-ui/SelectField'
 import TextField from 'material-ui/TextField'
 
-export default class DialogExampleModal extends Component {
+export default class FeedbackModal extends Component {
 
   static propTypes = {
     customers: PropTypes.array.isRequired,
