@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   resources :customers, only: :index
 
   namespace :api do
+    jsonapi_resources :customers
+    jsonapi_resources :feedback_states
     jsonapi_resources :feedbacks
+    jsonapi_resources :tickets
   end
 
   root to: 'application#index'
