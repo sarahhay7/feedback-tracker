@@ -10,19 +10,34 @@ export default class DialogExampleModal extends Component {
 
   static propTypes = {
     customers: PropTypes.array.isRequired,
+    feedback: PropTypes.object,
     feedbackStates: PropTypes.array.isRequired,
-    open: PropTypes.bool.isRequired,
     onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired
   }
 
-  state = {
-    description: '',
-    customers: []
+  state = {}
+
+  componentWillReceiveProps (props) {
+    this.setState({
+      ...props.feedback,
+      feedbackStateId: this.getFeedbackStateId(props),
+      customers: this.mapToDataSource(this.getCustomers(props))
+    })
   }
 
-  getCustomerDataSource () {
-    return this.props.customers.map(({id, name, email}) =>
+  getFeedbackStateId ({ feedback: { feedbackState } = {}, feedbackStates }) {
+    return feedbackState &&
+      (feedbackState() || {}).id ||
+      (feedbackStates[0] || {}).id
+  }
+
+  getCustomers ({ feedback: { customers } = {} }) {
+    return customers && customers()
+  }
+
+  mapToDataSource (customers = []) {
+    return customers.map(({id, name, email}) =>
       ({ id, text: `${name} <${email}>` })
     )
   }
@@ -32,7 +47,6 @@ export default class DialogExampleModal extends Component {
   }
 
   handleSelectChange (field, event, index, value) {
-    console.log(value)
     this.setState({ [field]: value })
   }
 
@@ -42,17 +56,19 @@ export default class DialogExampleModal extends Component {
   }
 
   handleSave () {
-    const { description, customers, feedbackStateId } = this.state
+    const { id, description, customers, feedbackStateId, importanceMutation } = this.state
     this.props.onSave({
       _type: 'feedbacks',
+      id,
       description,
+      importanceMutation,
       feedbackState: () => ({ _type: 'feedback_states', id: feedbackStateId }),
       customers: () => customers.map(({ id }) => ({ _type: 'customers', id }))
     })
   }
 
-  render () {
-    const actions = [
+  renderActions () {
+    return [
       <FlatButton
         label='Cancel'
         onTouchTap={this.props.onCancel}
@@ -63,35 +79,53 @@ export default class DialogExampleModal extends Component {
         onTouchTap={this.handleSave.bind(this)}
       />
     ]
+  }
 
+  renderStateOption ({ id, name }) {
+    return (
+      <MenuItem key={id} value={id} primaryText={name} />
+    )
+  }
+
+  render () {
     return (
       <Dialog
-        title='New Feedback'
-        actions={actions}
+        title={`${this.state.id ? 'Edit' : 'New'} Feedback`}
+        actions={this.renderActions()}
         modal
-        open={this.props.open}
+        open={!!this.props.feedback}
       >
         <form>
           <TextField
-            hintText='Description'
+            floatingLabelText='Description'
             onChange={this.handleInputChange.bind(this, 'description')}
             value={this.state.description}
+            multiLine
+            rows={4}
+            rowsMax={4}
+            fullWidth
           /><br />
           <SelectField
-            hintText='State'
+            floatingLabelText='State'
             onChange={this.handleSelectChange.bind(this, 'feedbackStateId')}
             value={this.state.feedbackStateId}
           >
-            {this.props.feedbackStates.map(({ id, name }) => (<MenuItem key={id} value={id} primaryText={name} />))}
+            {this.props.feedbackStates.map(this.renderStateOption, this)}
           </SelectField><br />
           <ChipInput
-            hintText='Customers'
+            floatingLabelText='Customers'
             dataSourceConfig={{ text: 'text', value: 'id' }}
-            dataSource={this.getCustomerDataSource()}
+            dataSource={this.mapToDataSource(this.props.customers)}
             onRequestAdd={this.handleCustomerAdd.bind(this)}
             value={this.state.customers}
             fullWidth
           />
+          <TextField
+            floatingLabelText='Importance'
+            type='number'
+            onChange={this.handleInputChange.bind(this, 'importanceMutation')}
+            value={this.state.importanceMutation}
+          /><br />
         </form>
       </Dialog>
     )
