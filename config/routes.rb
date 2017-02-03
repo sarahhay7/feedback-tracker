@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :feedbacks, only: [:new, :create]
   resources :feedback_states, only: :show
 
+  resources :customers, only: :index
+
   namespace :api do
     jsonapi_resources :feedbacks
   end

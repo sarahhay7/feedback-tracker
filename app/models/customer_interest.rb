@@ -1,6 +1,6 @@
 class CustomerInterest < ApplicationRecord
   belongs_to :feedback
-  belongs_to :customer
+  belongs_to :customer, counter_cache: true
 
   after_initialize :set_default_importance
 

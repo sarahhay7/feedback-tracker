@@ -1,0 +1,11 @@
+<h1>Customers</h1>
+
+<table>
+  <% @customers.each_with_index do |customer, i| %>
+    <tr>
+      <td>#<%= i + 1 %></td>
+      <td><%= link_to customer.name, customer.remote_url %></td>
+      <td><%= customer.customer_interests.count %> points</td>
+    </tr>
+  <% end %>
+</table>
