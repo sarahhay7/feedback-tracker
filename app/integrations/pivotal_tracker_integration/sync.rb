@@ -20,10 +20,12 @@ module PivotalTrackerIntegration
     private
 
     def sync_story(story)
-      ticket = Ticket.find_or_initialize_by(remote_id: story.id)
+      ticket = Ticket.find_or_initialize_by(
+        remote_id: story.id,
+        integration: integration
+      )
 
       ticket.update!(
-        integration: integration,
         title: story.name,
         kind: story.story_type,
         status: story.current_state
