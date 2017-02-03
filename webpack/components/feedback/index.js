@@ -23,6 +23,7 @@ export default class DialogExampleModal extends Component {
       ...props.feedback,
       feedbackStateId: this.getFeedbackStateId(props),
       customers: this.mapToCustomerDataSource(this.getCustomers(props)),
+      tags: this.getTags(props),
       tickets: this.getTickets(props)
     })
   }
@@ -39,6 +40,10 @@ export default class DialogExampleModal extends Component {
 
   getTickets ({ feedback: { tickets } = {} }) {
     return tickets && tickets()
+  }
+
+  getTags ({ feedback: { tags = [] } = {} }) {
+    return tags
   }
 
   mapToCustomerDataSource (customers = []) {
@@ -60,8 +65,8 @@ export default class DialogExampleModal extends Component {
     this.setState({ customers })
   }
 
-  handleCustomerDelete (customerId) {
-    const customers = this.state.customers.filter(({ id }) => id !== customerId)
+  handleCustomerDelete (value) {
+    const customers = this.state.customers.filter(({ id }) => id !== value)
     this.setState({ customers })
   }
 
@@ -70,13 +75,23 @@ export default class DialogExampleModal extends Component {
     this.setState({ tickets })
   }
 
-  handleTicketDelete (ticketId) {
-    const tickets = this.state.tickets.filter(({ id }) => id !== ticketId)
+  handleTicketDelete (value) {
+    const tickets = this.state.tickets.filter(({ id }) => id !== value)
     this.setState({ tickets })
   }
 
+  handleTagAdd (value) {
+    const tags = [...this.state.tags, value]
+    this.setState({ tags })
+  }
+
+  handleTagDelete (value) {
+    const tags = this.state.tags.filter(tag => tag !== value)
+    this.setState({ tags })
+  }
+
   handleSave () {
-    const { id, description, customers, feedbackStateId, importanceMutation, tickets } = this.state
+    const { id, description, customers, feedbackStateId, importanceMutation, tags, tickets } = this.state
     this.props.onSave({
       _type: 'feedbacks',
       id,
@@ -84,6 +99,7 @@ export default class DialogExampleModal extends Component {
       importanceMutation,
       feedbackState: () => ({ _type: 'feedback_states', id: feedbackStateId }),
       customers: () => customers,
+      tags,
       tickets: () => tickets
     })
   }
@@ -122,8 +138,8 @@ export default class DialogExampleModal extends Component {
             onChange={this.handleInputChange.bind(this, 'description')}
             value={this.state.description}
             multiLine
-            rows={4}
-            rowsMax={4}
+            rows={2}
+            rowsMax={2}
             fullWidth
           /><br />
           <SelectField
@@ -149,6 +165,13 @@ export default class DialogExampleModal extends Component {
             onRequestAdd={this.handleTicketAdd.bind(this)}
             onRequestDelete={this.handleTicketDelete.bind(this)}
             value={this.state.tickets}
+            fullWidth
+          />
+          <ChipInput
+            floatingLabelText='Tags'
+            onRequestAdd={this.handleTagAdd.bind(this)}
+            onRequestDelete={this.handleTagDelete.bind(this)}
+            value={this.state.tags}
             fullWidth
           />
           <TextField
