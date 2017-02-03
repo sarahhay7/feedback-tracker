@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203003616) do
+ActiveRecord::Schema.define(version: 20170203005529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20170203003616) do
     t.string   "status"
     t.string   "remote_id"
     t.integer  "integration_id"
+    t.text     "description"
     t.index ["integration_id"], name: "index_tickets_on_integration_id", using: :btree
   end
 
