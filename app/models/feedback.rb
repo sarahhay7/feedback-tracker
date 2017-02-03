@@ -9,4 +9,9 @@ class Feedback < ApplicationRecord
   def weighting
     customer_interests.sum(:importance) + importance_mutation
   end
+
+  def tags=(value)
+    value = value.split(',').map(&:strip) if value.is_a?(String)
+    super value
+  end
 end

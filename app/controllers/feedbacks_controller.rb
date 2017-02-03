@@ -19,6 +19,7 @@ class FeedbacksController < ApplicationController
       .permit(
         :description,
         :importance_mutation,
+        :tags,
         ticket_ids: [],
         customer_ids: [],
         customer_interests_attributes: [:importance, :customer_id, :_destroy]
