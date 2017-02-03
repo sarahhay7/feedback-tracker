@@ -3,32 +3,14 @@ import { connect } from 'react-redux'
 import { apiActions, deserialize } from 'redux-jsonapi'
 import AppBar from 'material-ui/AppBar'
 import Chip from 'material-ui/Chip'
+import Badge from 'material-ui/Badge'
 import FlatButton from 'material-ui/FlatButton'
 
+import './index.scss'
 import Feedback from '../../components/feedback'
 
 const deserializeAll = (resource, api) => {
   return Object.values(resource).map(object => deserialize(object, api))
-}
-
-const styles = {
-  root: {
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'column'
-  },
-  card: {
-    backgroundColor: '#dddddd',
-    padding: 10,
-    borderRadius: 5,
-    margin: '3%',
-    width: '30%',
-    maxHeight: 200,
-    overflow: 'hidden',
-    textOverflow: 'clip ellipsis'
-  }
 }
 
 export class Dashboard extends Component {
@@ -76,22 +58,32 @@ export class Dashboard extends Component {
     )
   }
 
+  sortedFeedbacks () {
+    return this.props.feedbacks.sort((a, b) => b.weighting - a.weighting)
+  }
+
   render () {
     return (
-      <div style={styles.root}>
+      <div className='dashboard'>
         <AppBar
           title='Dashboard'
           iconElementRight={this.renderFeedbackButton()}
         />
         {this.renderFeedback()}
-        {this.props.feedbacks.map((feedback, index) => (
-          <div key={index} style={styles.card}>
-            <Chip>
-              5
-            </Chip>
-            {feedback.description}
-          </div>
-        ))}
+        <div className='feedback-collection'>
+          {this.sortedFeedbacks().map((feedback, index) => (
+            <div key={index} className='feedback'>
+              <div className='description'>
+                {feedback.description}
+
+                <div className='tags'>
+                  {feedback.tags.map((tag, i) => <Chip key={i}>{tag}</Chip>)}
+                </div>
+              </div>
+              <div className='weighting'>{feedback.weighting}</div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

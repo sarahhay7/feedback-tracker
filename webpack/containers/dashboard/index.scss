@@ -1,0 +1,27 @@
+.feedback-collection {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback {
+  border: 1px solid #ccc;
+  border-radius: 0.2em;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-top: 0.5rem;
+  padding: 1rem;
+
+  .tags {
+    display: flex;
+  }
+
+  .weighting {
+    font-size: 1.2rem;
+  }
+
+  .description {
+    flex: 1;
+  }
+}
