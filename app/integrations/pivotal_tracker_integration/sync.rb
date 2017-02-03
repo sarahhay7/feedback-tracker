@@ -37,7 +37,8 @@ module PivotalTrackerIntegration
       ticket.update!(
         title: story.name,
         kind: story.story_type,
-        status: story.current_state
+        status: story.current_state,
+        description: story.description
       )
     end
   end

@@ -29,9 +29,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 02 Feb 2017 22:22:47 GMT
+      - Fri, 03 Feb 2017 00:57:28 GMT
       Etag:
-      - '"6a2c356fdde5afe963cff55dde4f3bf8"'
+      - '"6c2383b9812d0e887f15155c873971f1"'
       Server:
       - nginx + Phusion Passenger
       Status:
@@ -43,26 +43,26 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - 1adee57f1ec6facc52166d875728ac42
+      - e2c040615f7957ffbf77988f23d96ef8
       X-Runtime:
-      - '0.043563'
+      - '0.029488'
       X-Tracker-Client-Pinger-Interval:
       - '20'
       X-Tracker-Project-Version:
-      - '23'
+      - '24'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       X-Vcap-Request-Id:
-      - 3adc6a7e-f370-4f49-4de8-c0ff96f4f934
+      - 46959f1d-307a-40d9-77bc-c82a536da262
       Content-Length:
       - '727'
       Connection:
       - keep-alive
     body:
       encoding: ASCII-8BIT
-      string: '{"id":1234567,"kind":"project","name":"Sample Project","version":23,"iteration_length":1,"week_start_day":"Monday","point_scale":"0,1,2,3","point_scale_is_custom":false,"bugs_and_chores_are_estimatable":false,"automatic_planning":true,"enable_tasks":true,"time_zone":{"kind":"time_zone","olson_name":"America/Los_Angeles","offset":"-08:00"},"velocity_averaged_over":3,"number_of_done_iterations_to_show":12,"has_google_domain":false,"enable_incoming_emails":true,"initial_velocity":10,"public":false,"atom_enabled":false,"project_type":"private","start_time":"2017-01-30T08:00:00Z","created_at":"2017-02-02T22:13:59Z","updated_at":"2017-02-02T22:13:59Z","account_id":963977,"current_iteration_number":1,"enable_following":true}'
+      string: '{"id":1234567,"kind":"project","name":"Sample Project","version":24,"iteration_length":1,"week_start_day":"Monday","point_scale":"0,1,2,3","point_scale_is_custom":false,"bugs_and_chores_are_estimatable":false,"automatic_planning":true,"enable_tasks":true,"time_zone":{"kind":"time_zone","olson_name":"America/Los_Angeles","offset":"-08:00"},"velocity_averaged_over":3,"number_of_done_iterations_to_show":12,"has_google_domain":false,"enable_incoming_emails":true,"initial_velocity":10,"public":false,"atom_enabled":false,"project_type":"private","start_time":"2017-01-30T08:00:00Z","created_at":"2017-02-02T22:13:59Z","updated_at":"2017-02-02T23:01:21Z","account_id":963977,"current_iteration_number":1,"enable_following":true}'
     http_version: 
-  recorded_at: Thu, 02 Feb 2017 22:22:47 GMT
+  recorded_at: Fri, 03 Feb 2017 00:57:28 GMT
 - request:
     method: get
     uri: https://www.pivotaltracker.com/services/v5/projects/1234567/stories
@@ -92,9 +92,9 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 02 Feb 2017 22:22:48 GMT
+      - Fri, 03 Feb 2017 00:57:29 GMT
       Etag:
-      - '"7f25d29641f6b8cea0b4f36e124f6961"'
+      - '"f2a08978c26a7c75b23385c0f1b689d8"'
       Server:
       - nginx + Phusion Passenger
       Status:
@@ -106,9 +106,9 @@ http_interactions:
       X-Rack-Cache:
       - miss
       X-Request-Id:
-      - 7f2db2a5866d27b75934377602b49274
+      - 56a3b8433fe91e953f2467ce07275183
       X-Runtime:
-      - '0.036182'
+      - '0.095115'
       X-Tracker-Client-Pinger-Interval:
       - '20'
       X-Tracker-Pagination-Limit:
@@ -120,19 +120,19 @@ http_interactions:
       X-Tracker-Pagination-Total:
       - '8'
       X-Tracker-Project-Version:
-      - '23'
+      - '24'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       X-Vcap-Request-Id:
-      - d6591c96-52d1-437d-5750-1d383759231b
+      - c9884095-75f4-4570-4bf3-c1e23d460f6d
       Content-Length:
-      - '2744'
+      - '2777'
       Connection:
       - keep-alive
     body:
       encoding: ASCII-8BIT
-      string: '[{"kind":"story","id":138964449,"created_at":"2017-02-02T22:15:07Z","updated_at":"2017-02-02T22:15:15Z","accepted_at":"2017-02-02T22:15:15Z","estimate":2,"story_type":"feature","name":"Completed
-        Feature","current_state":"accepted","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964449","project_id":1234567,"owner_ids":[2548201],"labels":[],"owned_by_id":2548201},{"kind":"story","id":138964503,"created_at":"2017-02-02T22:15:44Z","updated_at":"2017-02-02T22:15:51Z","estimate":1,"story_type":"feature","name":"Finished
+      string: '[{"kind":"story","id":138964449,"created_at":"2017-02-02T22:15:07Z","updated_at":"2017-02-03T00:56:46Z","accepted_at":"2017-02-02T22:15:15Z","estimate":2,"story_type":"feature","name":"Completed
+        Feature","description":"A useful feature","current_state":"accepted","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964449","project_id":1234567,"owner_ids":[2548201],"labels":[],"owned_by_id":2548201},{"kind":"story","id":138964503,"created_at":"2017-02-02T22:15:44Z","updated_at":"2017-02-02T22:15:51Z","estimate":1,"story_type":"feature","name":"Finished
         Feature","current_state":"finished","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964503","project_id":1234567,"owner_ids":[2548201],"labels":[],"owned_by_id":2548201},{"kind":"story","id":138964413,"created_at":"2017-02-02T22:14:36Z","updated_at":"2017-02-02T22:14:55Z","story_type":"chore","name":"Example
         Chore","current_state":"started","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964413","project_id":1234567,"owner_ids":[2548201],"labels":[],"owned_by_id":2548201},{"kind":"story","id":138964493,"created_at":"2017-02-02T22:15:28Z","updated_at":"2017-02-02T22:15:34Z","estimate":3,"story_type":"feature","name":"Delivered
         Feature","current_state":"delivered","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964493","project_id":1234567,"owner_ids":[2548201],"labels":[],"owned_by_id":2548201},{"kind":"story","id":138964519,"created_at":"2017-02-02T22:15:58Z","updated_at":"2017-02-02T22:15:59Z","estimate":2,"story_type":"feature","name":"Started
@@ -141,5 +141,5 @@ http_interactions:
         Bug","current_state":"unscheduled","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964419","project_id":1234567,"owner_ids":[],"labels":[]},{"kind":"story","id":138964375,"created_at":"2017-02-02T22:14:15Z","updated_at":"2017-02-02T22:15:00Z","story_type":"feature","name":"Unestimated
         Feature","current_state":"unscheduled","requested_by_id":2548201,"url":"https://www.pivotaltracker.com/story/show/138964375","project_id":1234567,"owner_ids":[],"labels":[]}]'
     http_version: 
-  recorded_at: Thu, 02 Feb 2017 22:22:48 GMT
+  recorded_at: Fri, 03 Feb 2017 00:57:29 GMT
 recorded_with: VCR 2.9.3

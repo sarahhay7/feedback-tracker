@@ -20,14 +20,16 @@ module PivotalTrackerIntegration
       expect(ticket.remote_id).to eq '138964449'
       expect(ticket.kind).to eq 'feature'
       expect(ticket.status).to eq 'accepted'
+      expect(ticket.description).to eq 'A useful feature'
     end
-    
+
     it 'updates existing tickets rather than creating new ones' do
       ticket = create(:ticket, {
         remote_id: '138964449',
         title: 'Original Title',
         kind: 'chore',
         status: 'unstarted',
+        description: 'Original description',
         integration: integration
       })
 
@@ -38,6 +40,7 @@ module PivotalTrackerIntegration
       expect(ticket.title).to eq 'Completed Feature'
       expect(ticket.kind).to eq 'feature'
       expect(ticket.status).to eq 'accepted'
+      expect(ticket.description).to eq 'A useful feature'
     end
   end
 end
