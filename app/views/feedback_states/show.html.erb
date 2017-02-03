@@ -2,6 +2,7 @@
   <div>
     <p><%= feedback.description %></p>
     <p>Weighting: <%= feedback.weighting %></p>
+    <p>Tags: <%= feedback.tags.join(', ') %></p>
     <ul>
       <% feedback.tickets.each do |ticket| %>
         <li><%= link_to ticket.title %></li>
