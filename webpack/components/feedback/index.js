@@ -22,7 +22,8 @@ export default class DialogExampleModal extends Component {
     this.setState({
       ...props.feedback,
       feedbackStateId: this.getFeedbackStateId(props),
-      customers: this.mapToDataSource(this.getCustomers(props))
+      customers: this.mapToCustomerDataSource(this.getCustomers(props)),
+      tickets: this.getTickets(props)
     })
   }
 
@@ -36,9 +37,13 @@ export default class DialogExampleModal extends Component {
     return customers && customers()
   }
 
-  mapToDataSource (customers = []) {
-    return customers.map(({id, name, email}) =>
-      ({ id, text: `${name} <${email}>` })
+  getTickets ({ feedback: { tickets } = {} }) {
+    return tickets && tickets()
+  }
+
+  mapToCustomerDataSource (customers = []) {
+    return customers.map(customer =>
+      ({ ...customer, title: `${customer.name} <${customer.email}>` })
     )
   }
 
@@ -51,19 +56,35 @@ export default class DialogExampleModal extends Component {
   }
 
   handleCustomerAdd (value) {
-    const { customers } = this.state
-    this.setState({ customers: [...customers, value] })
+    const customers = [...this.state.customers, value]
+    this.setState({ customers })
+  }
+
+  handleCustomerDelete (customerId) {
+    const customers = this.state.customers.filter(({ id }) => id !== customerId)
+    this.setState({ customers })
+  }
+
+  handleTicketAdd (value) {
+    const tickets = [...this.state.tickets, value]
+    this.setState({ tickets })
+  }
+
+  handleTicketDelete (ticketId) {
+    const tickets = this.state.tickets.filter(({ id }) => id !== ticketId)
+    this.setState({ tickets })
   }
 
   handleSave () {
-    const { id, description, customers, feedbackStateId, importanceMutation } = this.state
+    const { id, description, customers, feedbackStateId, importanceMutation, tickets } = this.state
     this.props.onSave({
       _type: 'feedbacks',
       id,
       description,
       importanceMutation,
       feedbackState: () => ({ _type: 'feedback_states', id: feedbackStateId }),
-      customers: () => customers.map(({ id }) => ({ _type: 'customers', id }))
+      customers: () => customers,
+      tickets: () => tickets
     })
   }
 
@@ -114,10 +135,20 @@ export default class DialogExampleModal extends Component {
           </SelectField><br />
           <ChipInput
             floatingLabelText='Customers'
-            dataSourceConfig={{ text: 'text', value: 'id' }}
-            dataSource={this.mapToDataSource(this.props.customers)}
+            dataSourceConfig={{ text: 'title', value: 'id' }}
+            dataSource={this.mapToCustomerDataSource(this.props.customers)}
             onRequestAdd={this.handleCustomerAdd.bind(this)}
+            onRequestDelete={this.handleCustomerDelete.bind(this)}
             value={this.state.customers}
+            fullWidth
+          />
+          <ChipInput
+            floatingLabelText='Tickets'
+            dataSourceConfig={{ text: 'title', value: 'id' }}
+            dataSource={this.props.tickets}
+            onRequestAdd={this.handleTicketAdd.bind(this)}
+            onRequestDelete={this.handleTicketDelete.bind(this)}
+            value={this.state.tickets}
             fullWidth
           />
           <TextField

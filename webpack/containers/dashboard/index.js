@@ -21,6 +21,7 @@ export class Dashboard extends Component {
     this.props.loadCustomers()
     this.props.loadFeedbacks()
     this.props.loadFeedbackStates()
+    this.props.loadTickets()
   }
 
   handleNewFeedback = () => {
@@ -55,6 +56,7 @@ export class Dashboard extends Component {
         customers={this.props.customers}
         feedback={this.state.feedback}
         feedbackStates={this.props.feedbackStates}
+        tickets={this.props.tickets}
         onCancel={this.handleHideFeedback}
         onSave={this.handleSaveFeedback}
       />
@@ -102,14 +104,15 @@ function select (state, props) {
   return {
     customers: deserializeAll(api.customers, api),
     feedbacks: deserializeAll(api.feedbacks, api),
-    feedbackStates: deserializeAll(api.feedbackStates, api)
+    feedbackStates: deserializeAll(api.feedbackStates, api),
+    tickets: deserializeAll(api.tickets, api)
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     loadFeedbacks: () => {
-      dispatch(apiActions.read({ _type: 'feedbacks' }, { params: { include: 'customers,feedback_state' } }))
+      dispatch(apiActions.read({ _type: 'feedbacks' }, { params: { include: 'customers,feedback_state,tickets' } }))
     },
     loadFeedbackStates: () => {
       dispatch(apiActions.read({ _type: 'feedbackStates' }))
@@ -117,8 +120,11 @@ function mapDispatchToProps (dispatch) {
     loadCustomers: () => {
       dispatch(apiActions.read({ _type: 'customers' }))
     },
+    loadTickets: () => {
+      dispatch(apiActions.read({ _type: 'tickets' }))
+    },
     saveFeedback: (feedback) => {
-      dispatch(apiActions.write(feedback, { params: { include: 'customers,feedback_state' } }))
+      dispatch(apiActions.write(feedback, { params: { include: 'customers,feedback_state,tickets' } }))
     }
   }
 }
