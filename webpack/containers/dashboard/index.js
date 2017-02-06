@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { apiActions, deserialize } from 'redux-jsonapi'
 import AppBar from 'material-ui/AppBar'
 import Chip from 'material-ui/Chip'
-import Badge from 'material-ui/Badge'
 import FlatButton from 'material-ui/FlatButton'
 
 import './index.scss'
@@ -15,21 +14,26 @@ const deserializeAll = (resource, api) => {
 
 export class Dashboard extends Component {
   state = {
-    showFeedback: false
+    feedback: undefined
   }
 
   componentWillMount () {
     this.props.loadCustomers()
     this.props.loadFeedbacks()
     this.props.loadFeedbackStates()
+    this.props.loadTickets()
   }
 
-  handleShowFeedback = () => {
-    this.setState({showFeedback: true})
+  handleNewFeedback = () => {
+    this.setState({ feedback: {} })
+  }
+
+  handleEditFeedback = (feedback = {}) => {
+    this.setState({ feedback })
   }
 
   handleHideFeedback = () => {
-    this.setState({showFeedback: false})
+    this.setState({ feedback: undefined })
   }
 
   handleSaveFeedback = (feedback) => {
@@ -41,7 +45,7 @@ export class Dashboard extends Component {
     return (
       <FlatButton
         label='New Feedback'
-        onTouchTap={this.handleShowFeedback}
+        onTouchTap={this.handleNewFeedback}
       />
     )
   }
@@ -50,8 +54,9 @@ export class Dashboard extends Component {
     return (
       <Feedback
         customers={this.props.customers}
+        feedback={this.state.feedback}
         feedbackStates={this.props.feedbackStates}
-        open={this.state.showFeedback}
+        tickets={this.props.tickets}
         onCancel={this.handleHideFeedback}
         onSave={this.handleSaveFeedback}
       />
@@ -81,6 +86,11 @@ export class Dashboard extends Component {
                 </div>
               </div>
               <div className='weighting'>{feedback.weighting}</div>
+              <FlatButton
+                onTouchTap={this.handleEditFeedback.bind(this, feedback)}
+              >
+                Edit
+              </FlatButton>
             </div>
           ))}
         </div>
@@ -94,14 +104,15 @@ function select (state, props) {
   return {
     customers: deserializeAll(api.customers, api),
     feedbacks: deserializeAll(api.feedbacks, api),
-    feedbackStates: deserializeAll(api.feedbackStates, api)
+    feedbackStates: deserializeAll(api.feedbackStates, api),
+    tickets: deserializeAll(api.tickets, api)
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     loadFeedbacks: () => {
-      dispatch(apiActions.read({ _type: 'feedbacks' }))
+      dispatch(apiActions.read({ _type: 'feedbacks' }, { params: { include: 'customers,feedback_state,tickets' } }))
     },
     loadFeedbackStates: () => {
       dispatch(apiActions.read({ _type: 'feedbackStates' }))
@@ -109,8 +120,11 @@ function mapDispatchToProps (dispatch) {
     loadCustomers: () => {
       dispatch(apiActions.read({ _type: 'customers' }))
     },
+    loadTickets: () => {
+      dispatch(apiActions.read({ _type: 'tickets' }))
+    },
     saveFeedback: (feedback) => {
-      dispatch(apiActions.write(feedback))
+      dispatch(apiActions.write(feedback, { params: { include: 'customers,feedback_state,tickets' } }))
     }
   }
 }
