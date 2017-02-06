@@ -136,6 +136,7 @@ export default class FeedbackModal extends Component {
           <TextField
             floatingLabelText='Description'
             onChange={this.handleInputChange.bind(this, 'description')}
+            floatingLabelText='Description'
             value={this.state.description}
             multiLine
             rows={2}
