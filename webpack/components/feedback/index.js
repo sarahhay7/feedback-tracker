@@ -75,7 +75,11 @@ export default class DialogExampleModal extends Component {
           <TextField
             hintText='Description'
             onChange={this.handleInputChange.bind(this, 'description')}
+            floatingLabelText='Description'
             value={this.state.description}
+            multiLine
+            rows={10}
+            fullWidth
           /><br />
           <SelectField
             hintText='State'
